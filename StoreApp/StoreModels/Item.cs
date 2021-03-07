@@ -18,6 +18,10 @@ namespace StoreModels
             this.product = product;
             this.location = location;
         }
+        public Item()
+        {
+
+        }
         //Properties
         public int ItemID
         {

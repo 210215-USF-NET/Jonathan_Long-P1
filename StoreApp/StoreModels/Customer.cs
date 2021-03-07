@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreModels
 {
@@ -14,6 +15,7 @@ namespace StoreModels
         private string phoneNumber;
 
         //Constructor(s)
+        /*
         public Customer(string firstName, string lastName, string phoneNumber)
         {
             this.firstName = firstName;
@@ -24,8 +26,10 @@ namespace StoreModels
         {
             
         }
+        */
 
         //Properties
+        [Key]
         public int CustID
         {
             get {return custID;}
