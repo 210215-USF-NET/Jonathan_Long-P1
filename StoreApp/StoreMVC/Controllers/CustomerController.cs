@@ -36,22 +36,28 @@ namespace StoreMVC.Controllers
         // GET: CustomerController/Create
         public ActionResult Create()
         {
-            return View();
+            return View("CreateCustomer");
         }
 
         // POST: CustomerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CustomerCRVM newCustomer)
         {
-            try
+            if(ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _customerBL.AddCustomer(_mapper.Cast2Customer(newCustomer));
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
+           
         }
 
         // GET: CustomerController/Edit/5
