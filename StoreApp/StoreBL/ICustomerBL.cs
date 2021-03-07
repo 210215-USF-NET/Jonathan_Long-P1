@@ -5,6 +5,6 @@ namespace StoreBL
     public interface ICustomerBL
     {
          List<Customer> GetCustomers();
-         void AddCustomer(Customer newCustomer);
+         Customer AddCustomer(Customer newCustomer);
     }
 }
