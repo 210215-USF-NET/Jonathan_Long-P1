@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreBL;
+using StoreMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,16 @@ namespace StoreMVC.Controllers
     public class CustomerController : Controller
     {
         private ICustomerBL _customerBL;
-        public CustomerController(ICustomerBL customerBL)
+        private IMapper _mapper;
+        public CustomerController(ICustomerBL customerBL, IMapper mapper)
         {
             _customerBL = customerBL;
+            _mapper = mapper;
         }
         // GET: CustomerController
         public ActionResult Index()
         {
-            return View(_customerBL.GetCustomers());
+            return View(_customerBL.GetCustomers().Select(cust => _mapper.Cast2CustomerIndexVM(cust)).ToList());
         }
 
         // GET: CustomerController/Details/5

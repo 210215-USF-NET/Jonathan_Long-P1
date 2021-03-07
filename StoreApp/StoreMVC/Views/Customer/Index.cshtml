@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StoreModels.Customer>
+﻿@model IEnumerable<StoreMVC.Models.CustomerIndexVM>
 
 @{
     ViewData["Title"] = "Create Customer";
@@ -12,9 +12,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CustID)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
@@ -30,9 +27,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustID)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
