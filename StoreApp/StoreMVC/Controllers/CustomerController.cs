@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreBL;
+using StoreModels;
 using StoreMVC.Models;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,49 @@ namespace StoreMVC.Controllers
             _mapper = mapper;
         }
         // GET: CustomerController
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
+            if(search != null)
+            {
+                List<Customer> custList = _customerBL.GetCustomers().Select(cust => (cust)).ToList();
+                foreach(var item in custList )
+                {
+                    if(item.FirstName.ToString() == search)
+                    {
+                        List<CustomerIndexVM> l1 = new List<CustomerIndexVM>();
+                        l1.Add(_mapper.Cast2CustomerIndexVM(item));
+                        return View(l1);
+                    }
+                    else if(search.Contains(' '))
+                    {
+                        var words = search.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                        if(item.FirstName.ToString() == words[0] && item.LastName.ToString() == words[1])
+                        {
+                            List<CustomerIndexVM> l1 = new List<CustomerIndexVM>();
+                            l1.Add(_mapper.Cast2CustomerIndexVM(item));
+                            return View(l1);
+                        }
+                    }
+                }
+            }
             return View(_customerBL.GetCustomers().Select(cust => _mapper.Cast2CustomerIndexVM(cust)).ToList());
         }
+        /// <summary>
+        /// Action that sends client to view to search for a customer
+        /// </summary>
+        public ActionResult SerachCustomer()
+        {
+            try
+            {
+                return View();
+            }
+            catch
+            {
+                
+                return View();
+            }
+        }
+        
 
         // GET: CustomerController/Details/5
         public ActionResult Details(int id)
