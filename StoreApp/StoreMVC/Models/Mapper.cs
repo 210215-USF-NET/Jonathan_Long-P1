@@ -26,5 +26,14 @@ namespace StoreMVC.Models
                 PhoneNumber = customer2BCasted.PhoneNumber
             };
         }
+        public CustomerCRVM Cast2CustomerCRVM(Customer customer2BCasted)
+        {
+            return new CustomerCRVM
+            {
+                FirstName = customer2BCasted.FirstName,
+                LastName = customer2BCasted.LastName,
+                PhoneNumber = customer2BCasted.PhoneNumber
+            };
+        }
     }
 }

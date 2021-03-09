@@ -20,6 +20,23 @@ namespace StoreDL
             return newCustomer;
         }
 
+        public Customer GetCustomerByName(string firstName, string lastName)
+        {
+            var queryCustomer =
+            (from item in _context.Customers
+             where item.FirstName == firstName
+             && item.LastName == lastName
+             select item);
+            if(queryCustomer == null)
+            {
+                return null;
+            }
+            else
+            {
+                return queryCustomer.First();
+            }
+        }
+
         public List<Customer> GetCustomers()
         {
             return _context.Customers.AsNoTracking().Select(cust => cust).ToList();

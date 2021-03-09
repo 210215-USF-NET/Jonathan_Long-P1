@@ -50,27 +50,10 @@ namespace StoreMVC.Controllers
             }
             return View(_customerBL.GetCustomers().Select(cust => _mapper.Cast2CustomerIndexVM(cust)).ToList());
         }
-        /// <summary>
-        /// Action that sends client to view to search for a customer
-        /// </summary>
-        public ActionResult SerachCustomer()
+        // GET: CustomerController/Details/{cust firstName, cust lastName}
+        public ActionResult Details(string firstName, string lastName)
         {
-            try
-            {
-                return View();
-            }
-            catch
-            {
-                
-                return View();
-            }
-        }
-        
-
-        // GET: CustomerController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+            return View(_mapper.Cast2CustomerCRVM(_customerBL.GetCustomerByName(firstName, lastName)));
         }
 
         // GET: CustomerController/Create

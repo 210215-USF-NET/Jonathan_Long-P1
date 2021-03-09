@@ -10,9 +10,6 @@
     <a asp-action="Create">Add a new customer</a>
 </p>
 <p>
-    <a asp-action="Search">Search for a customer</a>
-</p>
-<p>
     @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
     {
         <b>Search By Customer Name:</b> @Html.TextBox("search") <input type="submit" value="Search" />
@@ -48,7 +45,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { firstName = item.FirstName, lastName = item.LastName }) |
                     @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>
             </tr>
