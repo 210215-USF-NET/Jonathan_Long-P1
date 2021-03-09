@@ -35,5 +35,15 @@ namespace StoreMVC.Models
                 PhoneNumber = customer2BCasted.PhoneNumber
             };
         }
+        public LocationIndexVM Cast2LocationIndexVM(Location location)
+        {
+            return new LocationIndexVM
+            {
+                LocationID = location.LocationID,
+                Address = location.Address,
+                State = location.State,
+                LocationName = location.LocationName
+            };
+        }
     }
 }
