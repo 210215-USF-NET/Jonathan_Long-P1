@@ -39,7 +39,6 @@ namespace StoreMVC.Controllers
         public ActionResult Details(int id)
         {
             return View();
-            return View();
         }
 
         // GET: ShopController/Create
