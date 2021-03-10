@@ -15,21 +15,30 @@ namespace StoreMVC.Controllers
     public class ShopController : Controller
     {
         private ILocationBL _locationBL;
+        private IItemBL _itemBL;
+        private IProductBL _productBL;
         private IMapper _mapper;
-        public ShopController(ILocationBL locationBL, IMapper mapper)
+        public ShopController(ILocationBL locationBL, IMapper mapper, IItemBL itemBL, IProductBL productBL)
         {
             _locationBL = locationBL;
             _mapper = mapper;
+            _itemBL = itemBL;
+            _productBL = productBL;
         }
         // GET: ShopController
         public ActionResult Index()
         {
             return View(_locationBL.GetLocations().Select(location => _mapper.Cast2LocationIndexVM(location)).ToList());
         }
+        public ActionResult Shop(int locationID)
+        {
+            return View(_itemBL.GetItemsByLocation(locationID).Select(item => _mapper.Cast2ItemCRVM(item)).ToList());
+        }
 
         // GET: ShopController/Details/5
         public ActionResult Details(int id)
         {
+            return View();
             return View();
         }
 
