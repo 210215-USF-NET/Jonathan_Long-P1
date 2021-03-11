@@ -24,5 +24,10 @@ steps:
     command: 'publish'
     zipAfterPublish: true
     publishWebProjects: true
-    arguments: 
-    
+     
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    appType: 'webApp'
+    WebAppName: 'skistore'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
