@@ -50,7 +50,7 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.ActionLink("Add to cart", "Quantity", new{ productID = item.ProductID })
+                    @Html.ActionLink("Add to cart", "Quantity", new{ productID = item.ProductID, locationID = item.LocationID })
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@

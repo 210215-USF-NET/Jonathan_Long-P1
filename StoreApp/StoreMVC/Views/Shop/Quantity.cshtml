@@ -4,6 +4,9 @@
 @{ 
     ProductCRVM selectedProduct = ViewBag.SelectedProduct;
 }
+@{ 
+    LocationCRVM selectedLocation = ViewBag.SelectedLocation;
+}
 
 <h1>Quantity</h1>
 <div class="container">
@@ -11,6 +14,9 @@
 </div>
 <div class="container">
     <form action="AddToCart" method="post">
+        <label>Shopping At:</label>
+        <input type="text" value="@selectedLocation.LocationName" name="selectedLocation" readonly />
+        <br />
         <label>Selected Product:</label>
         <input type="text" value="@selectedProduct.ProductName" name="selectedProduct" readonly />
         <br />

@@ -18,6 +18,12 @@ namespace StoreDL
         {
             _context = context;
         }
+
+        public Location GetLocationByName(string locationName)
+        {
+            return _context.Locations.AsNoTracking().Select(location => location).ToList().FirstOrDefault(loc => loc.LocationName == locationName);
+        }
+
         public List<Location> GetLocations()
         {
             return _context.Locations.AsNoTracking().Select(location => location).ToList();
@@ -25,7 +31,7 @@ namespace StoreDL
 
         public Location GetSpecificLocation(int storeCode)
         {
-            throw new NotImplementedException();
+            return _context.Locations.AsNoTracking().Select(location => location).ToList().FirstOrDefault(loc => loc.LocationID == storeCode);
         }
     }
 }

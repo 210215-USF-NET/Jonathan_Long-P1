@@ -10,5 +10,6 @@ namespace StoreMVC.Models
         LocationIndexVM Cast2LocationIndexVM(Location location);
         ItemCRVM Cast2ItemCRVM(Item item2BCasted);
         ProductCRVM Cast2ProductCRVM(Product item2BCasted);
+        LocationCRVM Cast2LocationCRVM(Location item2BCasted);
     }
 }

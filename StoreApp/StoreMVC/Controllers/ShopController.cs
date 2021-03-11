@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace StoreMVC.Controllers
 {
@@ -52,22 +53,25 @@ namespace StoreMVC.Controllers
             return View(_itemBL.GetItemsByLocation(locationID).Select(item => _mapper.Cast2ItemCRVM(item)).ToList());
         }
         //SET: Set the quantity of the selected product
-        public ActionResult Quantity(int productID)
+        public ActionResult Quantity(int productID, int locationID)
         {
-
+            LocationCRVM location = _mapper.Cast2LocationCRVM(_locationBL.GetSpecificLocation(locationID));
             ProductCRVM product = _mapper.Cast2ProductCRVM(_productBL.GetProductByID(productID));
             ViewBag.SelectedProduct = product;
+            ViewBag.SelectedLocation = location;
             return View();
         }
         //SET: Add the selected product and desired quantity to the cart (a.k.a our storedProductsQuantity object)
-        public ActionResult AddToCart(string selectedProduct, int selectedQuantity)
+        public ActionResult AddToCart(string selectedLocation, string selectedProduct, int selectedQuantity)
         {
             ProductCRVM p = _mapper.Cast2ProductCRVM(_productBL.GetProductByName(selectedProduct));
             StoredProductsQuantity cart = new StoredProductsQuantity();
             cart.Product2BeBought = p;
             cart.Quantity2BeBought = selectedQuantity;
             StoredProductsQuantity.storedProductsQuantity.Add(cart);
-            return View();
+            //Return back to store products view
+            int locationID = _locationBL.GetLocationByName(selectedLocation).LocationID;
+            return View(_itemBL.GetItemsByLocation(locationID).Select(item => _mapper.Cast2ItemCRVM(item)).ToList());
         }
         // GET: ShopController/Details/5
         public ActionResult Details(int id)

@@ -4,7 +4,8 @@ namespace StoreBL
 {
     public interface ILocationBL
     {
-         List<Location> GetLocations();
-         Location GetSpecificLocation(int storeCode);
+        List<Location> GetLocations();
+        Location GetSpecificLocation(int storeCode);
+        Location GetLocationByName(string locationName);
     }
 }

@@ -14,7 +14,12 @@ namespace StoreBL
         {
             _repo = repo;
         }
-        
+
+        public Location GetLocationByName(string locationName)
+        {
+            return _repo.GetLocationByName(locationName);
+        }
+
         public List<Location> GetLocations()
         {
             return _repo.GetLocations();
