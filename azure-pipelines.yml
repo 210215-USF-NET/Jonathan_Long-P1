@@ -28,6 +28,7 @@ steps:
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
+    azureSubscription: 'revature-training.database.windows.net'
     appType: 'webApp'
     WebAppName: 'skistore'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
