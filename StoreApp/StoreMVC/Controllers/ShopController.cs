@@ -19,7 +19,6 @@ namespace StoreMVC.Controllers
         private IItemBL _itemBL;
         private IProductBL _productBL;
         private IMapper _mapper;
-        public StoredProductsQuantity storedProductsQuantity;
         public ShopController(ILocationBL locationBL, IMapper mapper, IItemBL itemBL, IProductBL productBL)
         {
             _locationBL = locationBL;
@@ -60,8 +59,14 @@ namespace StoreMVC.Controllers
             ViewBag.SelectedProduct = product;
             return View();
         }
+        //SET: Add the selected product and desired quantity to the cart (a.k.a our storedProductsQuantity object)
         public ActionResult AddToCart(string selectedProduct, int selectedQuantity)
         {
+            ProductCRVM p = _mapper.Cast2ProductCRVM(_productBL.GetProductByName(selectedProduct));
+            StoredProductsQuantity cart = new StoredProductsQuantity();
+            cart.Product2BeBought = p;
+            cart.Quantity2BeBought = selectedQuantity;
+            StoredProductsQuantity.storedProductsQuantity.Add(cart);
             return View();
         }
         // GET: ShopController/Details/5

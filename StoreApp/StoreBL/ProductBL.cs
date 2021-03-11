@@ -19,6 +19,11 @@ namespace StoreBL
             return _repo.GetProductByID(productID);
         }
 
+        public Product GetProductByName(string productName)
+        {
+            return _repo.GetProductByName(productName);
+        }
+
         public List<Product> GetProducts()
         {
             return _repo.GetProducts();

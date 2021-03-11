@@ -32,5 +32,10 @@ namespace StoreDL
         {
             return _context.Products.AsNoTracking().Select(product => product).FirstOrDefault(product => product.ProductID == productID);
         }
+
+        public Product GetProductByName(string productName)
+        {
+            return _context.Products.AsNoTracking().Select(product => product).FirstOrDefault(product => product.ProductName == productName);
+        }
     }
 }

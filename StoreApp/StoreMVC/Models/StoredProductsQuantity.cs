@@ -7,13 +7,14 @@ namespace StoreMVC.Models
 {
     public class StoredProductsQuantity
     {
-        public List<ProductCRVM> Product2BeBought { get; set; }
-        public List<int> Quantity2BeBought { get; set; }
+
+        public ProductCRVM Product2BeBought { get; set; }
+        public int Quantity2BeBought { get; set; }
+        public static List<StoredProductsQuantity> storedProductsQuantity = new List<StoredProductsQuantity>();
 
         public void ClearStoredProductsQuantity()
         {
-            Product2BeBought.Clear();
-            Quantity2BeBought.Clear();
+            storedProductsQuantity.Clear();
         }
     }
 }
