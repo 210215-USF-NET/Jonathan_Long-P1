@@ -28,5 +28,9 @@ namespace StoreDL
         {
             throw new NotImplementedException();
         }
+        public Product GetProductByID(int productID)
+        {
+            return _context.Products.AsNoTracking().Select(product => product).FirstOrDefault(product => product.ProductID == productID);
+        }
     }
 }

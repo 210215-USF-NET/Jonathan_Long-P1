@@ -61,5 +61,15 @@ namespace StoreMVC.Models
                 LocationName = item2BCasted.Location.LocationName
             };
         }
+        public ProductCRVM Cast2ProductCRVM(Product item2BCasted)
+        {
+            return new ProductCRVM
+            {
+                ProductID = item2BCasted.ProductID,
+                ProductName = item2BCasted.ProductName,
+                Price = item2BCasted.Price,
+                Description = item2BCasted.Description
+            };
+        }
     }
 }

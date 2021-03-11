@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using StoreBL;
 using StoreMVC.Models;
 using System;
@@ -18,6 +19,7 @@ namespace StoreMVC.Controllers
         private IItemBL _itemBL;
         private IProductBL _productBL;
         private IMapper _mapper;
+        public StoredProductsQuantity storedProductsQuantity;
         public ShopController(ILocationBL locationBL, IMapper mapper, IItemBL itemBL, IProductBL productBL)
         {
             _locationBL = locationBL;
@@ -32,9 +34,36 @@ namespace StoreMVC.Controllers
         }
         public ActionResult Shop(int locationID)
         {
+            List<SelectListItem> Q = new List<SelectListItem>()
+            {
+                new SelectListItem
+                {
+                    Text="1", Value = "1"
+                },
+                 new SelectListItem
+                {
+                    Text="2", Value = "2"
+                },
+                  new SelectListItem
+                {
+                    Text="3", Value = "3"
+                },
+            };
+            ViewBag.Q = Q;
             return View(_itemBL.GetItemsByLocation(locationID).Select(item => _mapper.Cast2ItemCRVM(item)).ToList());
         }
+        //SET: Set the quantity of the selected product
+        public ActionResult Quantity(int productID)
+        {
 
+            ProductCRVM product = _mapper.Cast2ProductCRVM(_productBL.GetProductByID(productID));
+            ViewBag.SelectedProduct = product;
+            return View();
+        }
+        public ActionResult AddToCart(string selectedProduct, int selectedQuantity)
+        {
+            return View();
+        }
         // GET: ShopController/Details/5
         public ActionResult Details(int id)
         {
