@@ -15,10 +15,20 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Sonar'
+    organization: '210215-usf-net'
+    scannerMode: 'MSBuild'
+    projectKey: '210215-USF-NET_Jonathan_Long-P0'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: '**/StoreApp/StoreMVC/*.csproj'
+- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
@@ -32,3 +42,4 @@ steps:
     appType: 'webApp'
     WebAppName: 'skistore'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    
