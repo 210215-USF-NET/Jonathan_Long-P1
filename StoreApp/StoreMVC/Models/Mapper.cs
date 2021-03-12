@@ -81,5 +81,33 @@ namespace StoreMVC.Models
                 State = item2BCasted.State
             };
         }
+        public Location Cast2Location(LocationCRVM item2BCasted)
+        {
+            return new Location
+            {
+                LocationName = item2BCasted.LocationName,
+                Address = item2BCasted.Address,
+                State = item2BCasted.State
+            };
+        }
+        public Order Cast2Order(OrderCRVM item2BCasted)
+        {
+            return new Order
+            {
+                Date = item2BCasted.Date,
+                Total = item2BCasted.Total,
+                Customer = Cast2Customer(item2BCasted.Customer),
+                Location = Cast2Location(item2BCasted.Location)
+            };
+        }
+        public CustomerShopModel Cast2CustomerShopModel(Customer item2BCasted)
+        {
+            return new CustomerShopModel
+            {
+                CustID = item2BCasted.CustID,
+                Name = $"{item2BCasted.FirstName} {item2BCasted.LastName}",
+                PhoneNumber = item2BCasted.PhoneNumber
+            };
+        }
     }
 }

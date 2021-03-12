@@ -21,6 +21,10 @@ namespace StoreModels
             this.locationName = locationName;
             numOfLocations++;
         }
+        public Location()
+        {
+
+        }
 
         //Properties
         public int LocationID

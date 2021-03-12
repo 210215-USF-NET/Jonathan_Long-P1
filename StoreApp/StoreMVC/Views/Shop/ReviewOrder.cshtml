@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "ReviewOrder";
+}
+
+<h1>Select Customer For Order</h1>
+<div class="container">
+    <label>Select a Customer:</label>
+    @Html.DropDownList("custID", new SelectList(ViewBag.Customers, "CustID", "Name"))
+</div>
+

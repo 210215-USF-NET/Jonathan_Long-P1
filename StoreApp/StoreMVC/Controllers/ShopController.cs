@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StoreBL;
+using StoreModels;
 using StoreMVC.Models;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,15 @@ namespace StoreMVC.Controllers
         private ILocationBL _locationBL;
         private IItemBL _itemBL;
         private IProductBL _productBL;
+        private ICustomerBL _customerBL;
         private IMapper _mapper;
-        public ShopController(ILocationBL locationBL, IMapper mapper, IItemBL itemBL, IProductBL productBL)
+        public ShopController(ILocationBL locationBL, IMapper mapper, IItemBL itemBL, IProductBL productBL, ICustomerBL customerBL)
         {
             _locationBL = locationBL;
             _mapper = mapper;
             _itemBL = itemBL;
             _productBL = productBL;
+            _customerBL = customerBL;
         }
         // GET: ShopController
         public ActionResult Index()
@@ -71,7 +74,25 @@ namespace StoreMVC.Controllers
             StoredProductsQuantity.storedProductsQuantity.Add(cart);
             //Return back to store products view
             int locationID = _locationBL.GetLocationByName(selectedLocation).LocationID;
+            ViewBag.LocationID = locationID;
             return View(_itemBL.GetItemsByLocation(locationID).Select(item => _mapper.Cast2ItemCRVM(item)).ToList());
+        }
+        //Set/GET: Review products in order and finally place order 
+        public ActionResult ReviewOrder(int locationID)
+        {
+            double total = 0.0;
+            foreach(var item in StoredProductsQuantity.storedProductsQuantity)
+            {
+                total += item.Product2BeBought.Price;
+            }
+            List<CustomerShopModel> custListShop = new List<CustomerShopModel>();
+            List<Customer> custList = _customerBL.GetCustomers().Select(cust => (cust)).ToList();
+            foreach(var item in custList)
+            {
+                custListShop.Add(_mapper.Cast2CustomerShopModel(item));
+            }
+            ViewBag.Customers = custListShop;
+            return View();
         }
         // GET: ShopController/Details/5
         public ActionResult Details(int id)
