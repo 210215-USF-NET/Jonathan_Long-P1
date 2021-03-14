@@ -96,8 +96,8 @@ namespace StoreMVC.Models
             {
                 Date = item2BCasted.Date,
                 Total = item2BCasted.Total,
-                Customer = Cast2Customer(item2BCasted.Customer),
-                Location = Cast2Location(item2BCasted.Location)
+                Customer = item2BCasted.Customer,
+                Location = item2BCasted.Location
             };
         }
         public CustomerShopModel Cast2CustomerShopModel(Customer item2BCasted)

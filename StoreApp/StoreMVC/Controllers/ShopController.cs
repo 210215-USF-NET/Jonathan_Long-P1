@@ -21,14 +21,16 @@ namespace StoreMVC.Controllers
         private IItemBL _itemBL;
         private IProductBL _productBL;
         private ICustomerBL _customerBL;
+        private IOrderBL _orderBL;
         private IMapper _mapper;
-        public ShopController(ILocationBL locationBL, IMapper mapper, IItemBL itemBL, IProductBL productBL, ICustomerBL customerBL)
+        public ShopController(ILocationBL locationBL, IMapper mapper, IItemBL itemBL, IProductBL productBL, ICustomerBL customerBL, IOrderBL orderBL)
         {
             _locationBL = locationBL;
             _mapper = mapper;
             _itemBL = itemBL;
             _productBL = productBL;
             _customerBL = customerBL;
+            _orderBL = orderBL;
         }
         // GET: ShopController
         public ActionResult Index()
@@ -91,13 +93,23 @@ namespace StoreMVC.Controllers
             {
                 custListShop.Add(_mapper.Cast2CustomerShopModel(item));
             }
+            ViewBag.Total = total;
             ViewBag.Customers = custListShop;
             ViewBag.LocationID = locationID;
             return View();
         }
-        public ActionResult FinalizeOrder(int locationID, int custID)
+        //Create new Order Object, view products from cart and order total
+        public ActionResult FinalizeOrder(int locationID, int custID, double total)
         {
-            return View();
+            Customer customer = _customerBL.GetCustomerByID(custID);
+            Location location = _locationBL.GetSpecificLocation(locationID);
+            OrderCRVM order = new OrderCRVM();
+            order.Date = DateTime.Now;
+            order.Customer = customer;
+            order.Location = location;
+            order.Total = total;
+            _orderBL.AddOrder(_mapper.Cast2Order(order));
+            return View("Index");
         }
         // GET: ShopController/Details/5
         public ActionResult Details(int id)

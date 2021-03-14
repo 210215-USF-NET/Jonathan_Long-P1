@@ -4,6 +4,7 @@
 }
 @{ 
     int locationID = ViewBag.LocationID;
+    double total = ViewBag.Total;
 }
 
 <h1>Select Customer For Order</h1>
@@ -12,6 +13,7 @@
         <label>Select a Customer:</label>
         @Html.DropDownList("custID", new SelectList(ViewBag.Customers, "CustID", "Name"))
         <input type="hidden" name="locationID" id="locationID" value="@locationID" />
+        <input type="hidden" name="total" id="total" value="@total" />
         <br />
         <input type="submit" value="Review Order" class="btn btn-primary" />
     </form>

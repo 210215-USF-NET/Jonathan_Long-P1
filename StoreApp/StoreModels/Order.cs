@@ -50,6 +50,8 @@ namespace StoreModels
             get {return location;}
             set {location = value;}
         }
+        public int CustomerCustID { get; set; }
+        public int LocationID { get; set; }
         //Methods
         public override string ToString()
         {

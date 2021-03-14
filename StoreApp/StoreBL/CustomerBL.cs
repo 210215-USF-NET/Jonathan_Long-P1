@@ -20,6 +20,11 @@ namespace StoreBL
             return _repo.AddCustomer(newCustomer);
         }
 
+        public Customer GetCustomerByID(int custID)
+        {
+            return _repo.GetCustomerByID(custID);
+        }
+
         public Customer GetCustomerByName(string firstName, string lastName)
         {
             return _repo.GetCustomerByName(firstName, lastName);

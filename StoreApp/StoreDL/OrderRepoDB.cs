@@ -20,7 +20,12 @@ namespace StoreDL
         }
         public Order AddOrder(Order newOrder)
         {
-            _context.Orders.Add(newOrder);
+            Order order2DB = new Order();
+            order2DB.Date = newOrder.Date;
+            order2DB.Total = newOrder.Total;
+            order2DB.CustomerCustID = newOrder.Customer.CustID;
+            order2DB.LocationID = newOrder.Location.LocationID;
+            _context.Orders.Add(order2DB);
             _context.SaveChanges();
             return newOrder;
         }

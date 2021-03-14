@@ -19,7 +19,10 @@ namespace StoreDL
             _context.SaveChanges();
             return newCustomer;
         }
-
+        public Customer GetCustomerByID(int custID)
+        {
+            return _context.Customers.AsNoTracking().Select(cust => cust).FirstOrDefault(cust => cust.CustID == custID);
+        }
         public Customer GetCustomerByName(string firstName, string lastName)
         {
             var queryCustomer =
