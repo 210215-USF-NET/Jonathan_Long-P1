@@ -22,8 +22,9 @@ namespace StoreMVC.Controllers
         private IProductBL _productBL;
         private ICustomerBL _customerBL;
         private IOrderBL _orderBL;
+        private IProductOrderBL _productOrderBL;
         private IMapper _mapper;
-        public ShopController(ILocationBL locationBL, IMapper mapper, IItemBL itemBL, IProductBL productBL, ICustomerBL customerBL, IOrderBL orderBL)
+        public ShopController(ILocationBL locationBL, IMapper mapper, IItemBL itemBL, IProductBL productBL, ICustomerBL customerBL, IOrderBL orderBL, IProductOrderBL productOrderBL)
         {
             _locationBL = locationBL;
             _mapper = mapper;
@@ -31,6 +32,7 @@ namespace StoreMVC.Controllers
             _productBL = productBL;
             _customerBL = customerBL;
             _orderBL = orderBL;
+            _productOrderBL = productOrderBL;
         }
         // GET: ShopController
         public ActionResult Index()
@@ -85,7 +87,7 @@ namespace StoreMVC.Controllers
             double total = 0.0;
             foreach(var item in StoredProductsQuantity.storedProductsQuantity)
             {
-                total += item.Product2BeBought.Price;
+                total += (item.Product2BeBought.Price * item.Quantity2BeBought);
             }
             List<CustomerShopModel> custListShop = new List<CustomerShopModel>();
             List<Customer> custList = _customerBL.GetCustomers().Select(cust => (cust)).ToList();
@@ -108,8 +110,9 @@ namespace StoreMVC.Controllers
             order.Customer = customer;
             order.Location = location;
             order.Total = total;
-            _orderBL.AddOrder(_mapper.Cast2Order(order));
-            return View("Index");
+            //_orderBL.AddOrder(_mapper.Cast2Order(order));
+            ViewBag.ProductQuantity = StoredProductsQuantity.storedProductsQuantity;
+            return View();
         }
         // GET: ShopController/Details/5
         public ActionResult Details(int id)

@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "FinalizeOrder";
+}
+@{ 
+    List<StoredProductsQuantity> products = new List<StoredProductsQuantity>();
+    foreach(var item in ViewBag.ProductQuantity)
+    {
+        products.Add(item);
+    }
+}
+
+<h1>Review Order</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in products)
+        { 
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product2BeBought.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product2BeBought.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product2BeBought.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity2BeBought)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
