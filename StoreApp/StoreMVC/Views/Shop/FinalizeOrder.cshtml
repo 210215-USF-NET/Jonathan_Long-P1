@@ -8,6 +8,7 @@
     {
         products.Add(item);
     }
+    OrderCRVM order = ViewBag.Order;
 }
 
 <h1>Review Order</h1>
@@ -48,4 +49,10 @@
         }
     </tbody>
 </table>
+<br />
+<label><b>Total:</b> $@order.Total</label>
+<form action="CompleteOrder" method="post">
+    <input type="hidden" name="orderTotal" id="orderTotal" value="@order.Total" />
+    <input type="submit" value="Submit Order" class="btn btn-primary" />
+</form>
 

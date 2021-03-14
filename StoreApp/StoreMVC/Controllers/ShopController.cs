@@ -110,8 +110,15 @@ namespace StoreMVC.Controllers
             order.Customer = customer;
             order.Location = location;
             order.Total = total;
-            //_orderBL.AddOrder(_mapper.Cast2Order(order));
+            _orderBL.AddOrder(_mapper.Cast2Order(order));
             ViewBag.ProductQuantity = StoredProductsQuantity.storedProductsQuantity;
+            ViewBag.Order = order;
+            return View();
+        }
+        //Finalize order, thank you for shopping and estimated arrival time
+        public ActionResult CompleteOrder(double orderTotal)
+        {
+            Order order = _orderBL.FindOrder(orderTotal);
             return View();
         }
         // GET: ShopController/Details/5

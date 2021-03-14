@@ -37,7 +37,14 @@ namespace StoreDL
 
         public Order FindOrder(double totalCost)
         {
-            throw new NotImplementedException();
+            return _context.Orders
+            .Include("Customer")
+            .AsNoTracking()
+            .Include("Location")
+            .AsNoTracking()
+            .Select(order => order)
+            .ToList()
+            .FindLast(order => order.Total == totalCost);
         }
 
         public List<Order> GetCustomerOrders(int custID)
