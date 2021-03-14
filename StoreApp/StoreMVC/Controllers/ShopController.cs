@@ -92,6 +92,11 @@ namespace StoreMVC.Controllers
                 custListShop.Add(_mapper.Cast2CustomerShopModel(item));
             }
             ViewBag.Customers = custListShop;
+            ViewBag.LocationID = locationID;
+            return View();
+        }
+        public ActionResult FinalizeOrder(int locationID, int custID)
+        {
             return View();
         }
         // GET: ShopController/Details/5

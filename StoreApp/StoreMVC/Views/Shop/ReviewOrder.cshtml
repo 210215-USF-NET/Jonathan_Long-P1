@@ -2,10 +2,18 @@
 @{
     ViewData["Title"] = "ReviewOrder";
 }
+@{ 
+    int locationID = ViewBag.LocationID;
+}
 
 <h1>Select Customer For Order</h1>
 <div class="container">
-    <label>Select a Customer:</label>
-    @Html.DropDownList("custID", new SelectList(ViewBag.Customers, "CustID", "Name"))
+    <form action="FinalizeOrder" method="post">
+        <label>Select a Customer:</label>
+        @Html.DropDownList("custID", new SelectList(ViewBag.Customers, "CustID", "Name"))
+        <input type="hidden" name="locationID" id="locationID" value="@locationID" />
+        <br />
+        <input type="submit" value="Review Order" class="btn btn-primary" />
+    </form>
 </div>
 
