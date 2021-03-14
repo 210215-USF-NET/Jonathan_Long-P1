@@ -71,6 +71,16 @@ namespace StoreMVC.Models
                 Description = item2BCasted.Description
             };
         }
+        public Product Cast2Product(ProductCRVM item2BCasted)
+        {
+            return new Product
+            {
+                ProductID = item2BCasted.ProductID,
+                ProductName = item2BCasted.ProductName,
+                Price = item2BCasted.Price,
+                Description = item2BCasted.Description
+            };
+        }
         public LocationCRVM Cast2LocationCRVM(Location item2BCasted)
         {
             return new LocationCRVM

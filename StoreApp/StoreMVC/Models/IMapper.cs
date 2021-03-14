@@ -13,5 +13,6 @@ namespace StoreMVC.Models
         LocationCRVM Cast2LocationCRVM(Location item2BCasted);
         Order Cast2Order(OrderCRVM item2BCasted);
         CustomerShopModel Cast2CustomerShopModel(Customer item2BCasted);
+        Product Cast2Product(ProductCRVM item2BCasted);
     }
 }

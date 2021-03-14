@@ -119,6 +119,15 @@ namespace StoreMVC.Controllers
         public ActionResult CompleteOrder(double orderTotal)
         {
             Order order = _orderBL.FindOrder(orderTotal);
+            int orderID = order.OrderID;
+            foreach(var item in StoredProductsQuantity.storedProductsQuantity)
+            {
+                ProductOrder productOrder = new ProductOrder();
+                productOrder.Order = order;
+                productOrder.Product = _mapper.Cast2Product( item.Product2BeBought);
+                productOrder.Quantity = item.Quantity2BeBought;
+                _productOrderBL.AddProductOrder(productOrder);
+            }
             return View();
         }
         // GET: ShopController/Details/5

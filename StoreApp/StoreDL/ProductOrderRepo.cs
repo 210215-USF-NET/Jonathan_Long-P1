@@ -23,7 +23,7 @@ namespace StoreDL
             productOrder2DB.Quantity = newProductOrder.Quantity;
             productOrder2DB.OrderID = newProductOrder.Order.OrderID;
             productOrder2DB.ProductID = newProductOrder.Product.ProductID;
-            _context.ProductOrders.Add(newProductOrder);
+            _context.ProductOrders.Add(productOrder2DB);
             _context.SaveChanges();
             return newProductOrder;
 

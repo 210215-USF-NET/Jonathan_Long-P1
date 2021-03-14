@@ -19,6 +19,10 @@ namespace StoreModels
             this.price = price;
             this.description = description;
         }
+        public Product()
+        {
+
+        }
         //Properties
         public int ProductID
         {

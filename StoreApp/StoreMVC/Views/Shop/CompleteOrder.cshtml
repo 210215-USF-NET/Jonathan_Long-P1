@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "CompleteOrder";
+}
+
+<h1>Order Complete</h1>
+<div class="container">
+    <p>Your order has been successfully placed!</p>
+    <br />
+    <p>Your order should arrive within 3 business days</p>
+    <form asp-controller="Home" asp-action="Index">
+        <input type="submit" value="Back to Site" class="btn btn-primary" />
+    </form>
+</div>
+
