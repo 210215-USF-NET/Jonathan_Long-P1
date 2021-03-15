@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "StoreOrderHistory";
+    int locationID = ViewBag.Location;
+    string locationName = ViewBag.LocationName;
+}
+
+<h1>Order History - @locationName</h1>
+<br />
+<div class="container">
+    <form action="DisplayStoreOrderHistory" method="post">
+        <lable>Sort By:</lable>
+        <select name="sortby" id="sortby">
+            <option>--Select--</option>
+            <option value="ASCDate">Date (Ascending)</option>
+            <option value="DESCDate">Date (Descending)</option>
+            <option value="ASCTotal">Total (Ascending)</option>
+            <option value="DESCTotal">Total (Descending)</option>
+        </select>
+        <input type="hidden" name="locationID" id="locationID" value="@locationID" />
+        <input type="submit" value="Sort" class="btn btn-primary" />
+    </form>
+</div>
+

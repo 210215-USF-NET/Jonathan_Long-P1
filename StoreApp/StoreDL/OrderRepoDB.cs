@@ -160,25 +160,101 @@ namespace StoreDL
             }
             return returnList;
         }
-
+        //Get location orders sorted by date ascending
         public List<Order> GetLocationOrderASC(int locationID)
         {
-            throw new NotImplementedException();
+            var queryLocations =
+            (from order in _context.Orders
+             join location in _context.Locations
+             on order.LocationID equals location.LocationID
+             join cust in _context.Customers
+             on order.CustomerCustID equals cust.CustID
+             where location.LocationID == locationID
+             orderby order.Date
+             select order).ToList();
+            if (queryLocations == null)
+                return null;
+            List<Order> returnList = new List<Order>();
+            foreach (var item in queryLocations)
+            {
+                item.Customer = _context.Customers.Find(item.CustomerCustID);
+                item.Location = _context.Locations.Find(item.LocationID);
+                Order newOrder = item;
+                returnList.Add(newOrder);
+            }
+            return returnList;
         }
 
         public List<Order> GetLocationOrderASCTotal(int locationID)
         {
-            throw new NotImplementedException();
+            var queryLocations =
+            (from order in _context.Orders
+             join location in _context.Locations
+             on order.LocationID equals location.LocationID
+             join cust in _context.Customers
+             on order.CustomerCustID equals cust.CustID
+             where location.LocationID == locationID
+             orderby order.Total
+             select order).ToList();
+            if (queryLocations == null)
+                return null;
+            List<Order> returnList = new List<Order>();
+            foreach (var item in queryLocations)
+            {
+                item.Customer = _context.Customers.Find(item.CustomerCustID);
+                item.Location = _context.Locations.Find(item.LocationID);
+                Order newOrder = item;
+                returnList.Add(newOrder);
+            }
+            return returnList;
         }
 
         public List<Order> GetLocationOrderDESC(int locationID)
         {
-            throw new NotImplementedException();
+            var queryLocations =
+            (from order in _context.Orders
+             join location in _context.Locations
+             on order.LocationID equals location.LocationID
+             join cust in _context.Customers
+             on order.CustomerCustID equals cust.CustID
+             where location.LocationID == locationID
+             orderby order.Date descending
+             select order).ToList();
+            if (queryLocations == null)
+                return null;
+            List<Order> returnList = new List<Order>();
+            foreach (var item in queryLocations)
+            {
+                item.Customer = _context.Customers.Find(item.CustomerCustID);
+                item.Location = _context.Locations.Find(item.LocationID);
+                Order newOrder = item;
+                returnList.Add(newOrder);
+            }
+            return returnList;
         }
 
         public List<Order> GetLocationOrderDESCTotal(int locationID)
         {
-            throw new NotImplementedException();
+            var queryLocations =
+            (from order in _context.Orders
+             join location in _context.Locations
+             on order.LocationID equals location.LocationID
+             join cust in _context.Customers
+             on order.CustomerCustID equals cust.CustID
+             where location.LocationID == locationID
+             orderby order.Total descending
+             select order).ToList();
+            if (queryLocations == null)
+                return null;
+            List<Order> returnList = new List<Order>();
+            foreach (var item in queryLocations)
+            {
+                item.Customer = _context.Customers.Find(item.CustomerCustID);
+                item.Location = _context.Locations.Find(item.LocationID);
+                Order newOrder = item;
+                returnList.Add(newOrder);
+            }
+            return returnList;
         }
 
         public List<Order> GetOrders()
