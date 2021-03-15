@@ -1,7 +1,37 @@
 ﻿
 @{
     ViewData["Title"] = "OrderHistorySort";
+    string firstName = ViewBag.CustFirstName;
+    string lastName = ViewBag.CustLastName;
+}
+@{ 
+    List<StoreModels.Order> orders = ViewBag.Orders;
 }
 
-<h1>Order History - </h1>
+<h1>Order History - @firstName @lastName</h1>
+<div class="container">
+    <form action="OrderHistorySort" method="post">
+        <lable>Sort By:</lable>
+        <select name="sortby" id="sortby">
+            <option>--Select--</option>
+            <option value="ASCDate">Date (Ascending)</option>
+            <option value="DESCDate">Date (Descending)</option>
+            <option value="ASCTotal">Total (Ascending)</option>
+            <option value="DESCTotal">Total (Descending)</option>
+        </select>
+        <input type="hidden" name="firstName" id="firstName" value="@firstName" />
+        <input type="hidden" name="lastName" id="lastName" value="@lastName" />
+        <input type="submit" value="Sort" class="btn btn-primary" />
+    </form>
+</div>
+<div class="container">
+    @foreach(var item in orders)
+    {
+        <label>Order Date: </label>
+        @item.Date
+        <label>Order Total: </label>
+        <label>$</label>@item.Total
+        <br />
+    }
+</div>
 
