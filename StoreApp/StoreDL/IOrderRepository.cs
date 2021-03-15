@@ -17,5 +17,6 @@ namespace StoreDL
         List<Order> GetCustomerOrdersDESC(int custID);
         List<Order> GetCustomerOrdersASCTotal(int custID);
         List<Order> GetCustomerOrdersDESCTotal(int custID);
+        List<ProductOrder> GetProductsByOrderID(int orderID);
     }
 }

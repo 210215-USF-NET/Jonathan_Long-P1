@@ -51,7 +51,27 @@ namespace StoreDL
         {
             throw new NotImplementedException();
         }
-
+        public List<ProductOrder> GetProductsByOrderID(int orderID)
+        {
+            var queryProducts =
+            (from productOrder in _context.ProductOrders
+             where productOrder.OrderID == orderID
+             select productOrder).ToList();
+            if(queryProducts == null)
+            {
+                return null;
+            }
+            List<ProductOrder> returnList = new List<ProductOrder>();
+            foreach(var item in queryProducts)
+            {
+                item.Order = _context.Orders.Find(item.OrderID);
+                item.Product = _context.Products.Find(item.ProductID);
+                ProductOrder productOrder = item;
+                returnList.Add(productOrder);
+            }
+            return returnList;
+        }
+        //Get orders by date ascending
         public List<Order> GetCustomerOrdersASC(int custID)
         {
 
@@ -74,7 +94,7 @@ namespace StoreDL
             }
             return returnList;
         }
-
+        //Get orders by total ascending
         public List<Order> GetCustomerOrdersASCTotal(int custID)
         {
             var queryCustOrders =
@@ -96,7 +116,7 @@ namespace StoreDL
             }
             return returnList;
         }
-
+        //Get orders by date descending
         public List<Order> GetCustomerOrdersDESC(int custID)
         {
             var queryCustOrders =
@@ -118,7 +138,7 @@ namespace StoreDL
             }
             return returnList;
         }
-
+        //Get orders by total descending
         public List<Order> GetCustomerOrdersDESCTotal(int custID)
         {
             var queryCustOrders =

@@ -105,6 +105,13 @@ namespace StoreMVC.Controllers
                 return View();
             }
         }
+        //Display products for a particular customer order
+        public ActionResult ViewProductsForOrder(int orderID)
+        {
+            List<ProductOrder> productOrders = _orderBL.GetProductsByOrderID(orderID);
+            ViewBag.Products = productOrders;
+            return View();
+        }
         // GET: CustomerController/Create
         public ActionResult Create()
         {

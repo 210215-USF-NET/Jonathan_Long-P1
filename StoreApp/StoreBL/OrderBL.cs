@@ -74,5 +74,10 @@ namespace StoreBL
         {
             return _repo.GetOrders();
         }
+
+        public List<ProductOrder> GetProductsByOrderID(int orderID)
+        {
+            return _repo.GetProductsByOrderID(orderID);
+        }
     }
 }

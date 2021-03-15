@@ -25,13 +25,43 @@
     </form>
 </div>
 <div class="container">
-    @foreach(var item in orders)
-    {
-        <label>Order Date: </label>
-        @item.Date
-        <label>Order Total: </label>
-        <label>$</label>@item.Total
-        <br />
-    }
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Order Date
+                </th>
+                <th>
+                    Total
+                </th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    Products
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in orders)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.LocationName)
+                </td>
+                <td>
+                    @Html.ActionLink("View Products", "ViewProductsForOrder", new { orderID = item.OrderID})
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+        
 </div>
 
