@@ -16,10 +16,16 @@ namespace StoreMVC.Controllers
     public class CustomerController : Controller
     {
         private ICustomerBL _customerBL;
+        private ILocationBL _locationBL;
+        private IProductBL _productBL;
+        private IOrderBL _orderBL;
         private IMapper _mapper;
-        public CustomerController(ICustomerBL customerBL, IMapper mapper)
+        public CustomerController(ICustomerBL customerBL, IMapper mapper, ILocationBL locationBL, IProductBL productBL, IOrderBL orderBL)
         {
             _customerBL = customerBL;
+            _locationBL = locationBL;
+            _productBL = productBL;
+            _orderBL = orderBL;
             _mapper = mapper;
         }
         // GET: CustomerController
@@ -55,7 +61,50 @@ namespace StoreMVC.Controllers
         {
             return View(_mapper.Cast2CustomerCRVM(_customerBL.GetCustomerByName(firstName, lastName)));
         }
-
+        //View Customer Order History
+        public ActionResult OrderHistory(string firstName, string lastName)
+        {
+            int custID = _customerBL.GetCustomerByName(firstName, lastName).CustID;
+            string custName = firstName + " " + lastName;
+            ViewBag.CustName = custName;
+            ViewBag.CustFirstName = firstName;
+            ViewBag.CustLastName = lastName;
+            return View();
+        }
+        //View Customer Order history based on sort selection 
+        [ActionName("OrderHistorySort")]
+        public ActionResult OrderHistory(string firstName, string lastName, string sortby)
+        {
+            int custID = _customerBL.GetCustomerByName(firstName, lastName).CustID;
+            List<Order> orders = null;
+            if (sortby == "ASCDate")
+            {
+                orders = _orderBL.GetCustomerOrdersASC(custID);
+            }
+            else if(sortby == "DESCDate")
+            {
+                orders = _orderBL.GetCustomerOrdersDESC(custID);
+            }
+            else if (sortby == "ASCTotal")
+            {
+                orders = _orderBL.GetCustomerOrdersASCTotal(custID);
+            }
+            else if (sortby == "DESCTotal")
+            {
+                orders = _orderBL.GetCustomerOrdersDESCTotal(custID);
+            }
+            if(orders.Count <1)
+            {
+                return View("~/Views/Customer/OrderHistoryEmpty.cshtml");
+            }
+            else
+            {
+                ViewBag.CustFirstName = firstName;
+                ViewBag.CustLastName = lastName;
+                ViewBag.Orders = orders;
+                return View();
+            }
+        }
         // GET: CustomerController/Create
         public ActionResult Create()
         {

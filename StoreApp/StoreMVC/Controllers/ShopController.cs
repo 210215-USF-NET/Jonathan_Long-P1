@@ -128,6 +128,7 @@ namespace StoreMVC.Controllers
                 productOrder.Quantity = item.Quantity2BeBought;
                 _productOrderBL.AddProductOrder(productOrder);
             }
+            StoredProductsQuantity.storedProductsQuantity.Clear();
             return View();
         }
         // GET: ShopController/Details/5
