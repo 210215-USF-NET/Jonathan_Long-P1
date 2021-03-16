@@ -45,5 +45,16 @@ namespace StoreTests
             testLocation.LocationName = store;
             Assert.Equal(store, testLocation.LocationName);
         }
+        [Fact]
+        public void CustFirstNameSet()
+        {
+            string fName = "Customer";
+            string lName = "Test";
+            string phoneNumber = "555-222-3443";
+            testCustomer.FirstName = fName;
+            testCustomer.LastName = lName;
+            testCustomer.PhoneNumber = phoneNumber;
+            Assert.Equal(fName, testCustomer.FirstName);
+        }
     }
 }

@@ -1,9 +1,9 @@
 using Xunit;
 using Microsoft.EntityFrameworkCore;
 using StoreDL;
-using Entity = StoreDL.Entities;
-using Model = StoreModels;
 using System.Linq;
+using StoreModels;
+
 namespace StoreTests
 {
     /// <summary>
@@ -11,10 +11,10 @@ namespace StoreTests
     /// </summary>
     public class StoreRepoTest
     {
-        private readonly DbContextOptions<Entity.StoreDBContext> options;
+        private readonly DbContextOptions<StoreDBContext> options;
         public StoreRepoTest()
         {
-            options = new DbContextOptionsBuilder<Entity.StoreDBContext>()
+            options = new DbContextOptionsBuilder<StoreDBContext>()
             .UseSqlite("Filename=Test.db")
             .Options;
 
@@ -25,10 +25,10 @@ namespace StoreTests
         [Fact]
         public void GetAllCustomersShouldReturnAllCustomers()
         {
-            using(var context = new Entity.StoreDBContext(options))
+            using(var context = new StoreDBContext(options))
             {
                 //Arrange
-                ICustomerRepository _repo = new CustomerRepoDB(context, new StoreMapper());
+                ICustomerRepository _repo = new CustomerRepoDB(context);
                 //Act
                 var customer = _repo.GetCustomers();
                 Assert.Equal(2, customer.Count);
@@ -38,9 +38,9 @@ namespace StoreTests
         [Fact]
         public void GetAllLocationsShouldReturnAllLocations()
         {
-            using(var context = new Entity.StoreDBContext(options))
+            using(var context = new StoreDBContext(options))
             {
-                ILocationRepository _repo = new LocationRepoDB(context, new StoreMapper());
+                ILocationRepository _repo = new LocationRepoDB(context);
                 var location = _repo.GetLocations();
                 Assert.Equal(2, location.Count());
             }
@@ -48,30 +48,62 @@ namespace StoreTests
         [Fact]
         public void SearchSpecificLocationShouldReturnLocation()
         {
-            using(var context = new Entity.StoreDBContext(options))
+            using(var context = new StoreDBContext(options))
             {
-                ILocationRepository _repo = new LocationRepoDB(context, new StoreMapper());
+                ILocationRepository _repo = new LocationRepoDB(context);
                 var location = _repo.GetSpecificLocation(0);
                 Assert.Equal(location, location);
             }
         }
         [Fact]
-        public void SearchForItemShouldReturnItem()
+        public void SearchLocationByName()
         {
-            using(var context = new Entity.StoreDBContext(options))
+            using (var context = new StoreDBContext(options))
             {
-                IItemRepository _repo = new ItemRepoDB(context, new StoreMapper());
-                var item = _repo.GetItems();
-                Assert.Equal(2, item.Count());
+                ILocationRepository _repo = new LocationRepoDB(context);
+                var location = _repo.GetLocationByName("Ski Buy");
+                Assert.NotNull(location);
+
             }
-            
+        }
+        [Fact]
+        public void AddCustomerShouldAddCustomer()
+        {
+            using (var context = new StoreDBContext(options))
+            {
+                ICustomerRepository _repo = new CustomerRepoDB(context);
+                _repo.AddCustomer
+                    (
+                        new Customer
+                        {
+                            FirstName = "Zach",
+                            LastName = "French",
+                            PhoneNumber = "508-230-4567"
+                        }
+                    );
+            }
+            using (var assertContext = new StoreDBContext(options))
+            {
+                var result = assertContext.Customers.FirstOrDefault(cust => cust.FirstName == "Zach" && cust.LastName == "French");
+                Assert.NotNull(result);
+            }
+        }
+        [Fact]
+        public void SearchCustomerByName()
+        {
+            using(var context = new StoreDBContext(options))
+            {
+                ICustomerRepository _repo = new CustomerRepoDB(context);
+                var item = _repo.GetCustomerByName("Tom", "Brady");
+                Assert.NotNull(item);
+            }
         }
         [Fact]
         public void SearchForItemShouldReturnSpecificItem()
         {
-            using(var context = new Entity.StoreDBContext(options))
+            using(var context = new StoreDBContext(options))
             {
-                IItemRepository _repo = new ItemRepoDB(context, new StoreMapper());
+                IItemRepository _repo = new ItemRepoDB(context);
                 var item = _repo.GetItemByID(0);
                 Assert.Equal(item, item);
             }
@@ -79,50 +111,55 @@ namespace StoreTests
         [Fact]
         public void SearchForProductShouldReturnProduct()
         {
-            using(var context = new Entity.StoreDBContext(options))
+            using(var context = new StoreDBContext(options))
             {
-                IProductRepository _repo = new ProductRepoDB(context, new StoreMapper());
+                IProductRepository _repo = new ProductRepoDB(context);
                 var product = _repo.GetProducts();
                 Assert.Equal(2, product.Count());
             }
         }
+        [Fact]
+        public void ProductSearch()
+        {
+            using (var context = new StoreDBContext(options))
+            {
+                IProductRepository _repo = new ProductRepoDB(context);
+                var product = _repo.GetProductByName("Skis");
+                Assert.NotNull(product);
+            }
+        }
         private void Seed()
         {
-            using(var context = new Entity.StoreDBContext(options))
+            using(var context = new StoreDBContext(options))
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
                 
                 context.Customers.AddRange
                 (
-                    new Entity.Customer
+                    new Customer
                     {
-                        CustId = 0,
                         FirstName = "Jack",
                         LastName = "Long",
                         PhoneNumber = "123-444-5678"
                     },
-                     new Entity.Customer
+                     new Customer
                     {
-                        CustId = 1,
                         FirstName = "Tom",
                         LastName = "Brady",
                         PhoneNumber = "145-464-5690"
                     }
                 );
-                
                 context.Locations.AddRange
                 (
-                    new Entity.Location
+                    new Location
                     {
-                        LocationId = 0,
                         Address = "123 Way",
                         State = "VA",
                         LocationName = "Ski Store"
                     },
-                      new Entity.Location
+                    new Location
                     {
-                        LocationId = 1,
                         Address = "42 Way",
                         State = "VA",
                         LocationName = "Ski Buy"
@@ -130,36 +167,17 @@ namespace StoreTests
                 );
                 context.Products.AddRange
                 (
-                    new Entity.Product
+                    new Product
                     {
-                        ProductId = 0,
                         ProductName = "Skis",
                         Price = 22,
                         Description = "They are skis"
                     },
-                      new Entity.Product
+                    new Product
                     {
-                        ProductId = 1,
                         ProductName = "Boots",
                         Price = 10,
                         Description = "They are boots"
-                    }
-                );
-                context.Items.AddRange
-                (
-                    new Entity.Item
-                    {
-                        ItemId = 0,
-                        Quantity = 20,
-                        ProductId = 1,
-                        LocationId = 1
-                    },
-                     new Entity.Item
-                    {
-                        ItemId = 1,
-                        Quantity = 10,
-                        ProductId = 0,
-                        LocationId = 0
                     }
                 );
                 context.SaveChanges();
