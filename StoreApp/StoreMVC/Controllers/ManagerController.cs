@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Serilog;
 namespace StoreMVC.Controllers
 {
     /// <summary>
@@ -33,6 +33,7 @@ namespace StoreMVC.Controllers
         // GET: ManagerController - Goes to the manager main menu
         public ActionResult Index()
         {
+            Log.Information("Manager menu accessed");
             return View();
         }
         //Inventory History: Display locations
@@ -104,8 +105,17 @@ namespace StoreMVC.Controllers
         public ActionResult UpdateInventoryDB(int selectedQuantity, int itemID)
         {
             Item item2BUpdated = _itemBL.GetItemByID(itemID);
-            _itemBL.UpdateItem(item2BUpdated, selectedQuantity);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                _itemBL.UpdateItem(item2BUpdated, selectedQuantity);
+                Log.Information($"Updated {item2BUpdated.Product.ProductName} at location {item2BUpdated.Location.LocationName} to quantity {selectedQuantity}");
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                Log.Error($"Unable to update {item2BUpdated.Product.ProductName} at location {item2BUpdated.Location.LocationName} to quantity {selectedQuantity}");
+                return View();
+            }
         }
         // GET: ManagerController/Details/5
         public ActionResult Details(int id)

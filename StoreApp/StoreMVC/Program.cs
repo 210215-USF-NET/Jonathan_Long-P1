@@ -6,13 +6,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Serilog;
+using Serilog.Formatting.Compact;
 namespace StoreMVC
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            //Set up logger
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .WriteTo.File(new CompactJsonFormatter(), "../Logs.json").CreateLogger();
+
             CreateHostBuilder(args).Build().Run();
         }
 

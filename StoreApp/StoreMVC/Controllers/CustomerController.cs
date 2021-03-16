@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Serilog;
 namespace StoreMVC.Controllers
 {
     /// <summary>
@@ -128,10 +128,12 @@ namespace StoreMVC.Controllers
                 try
                 {
                     _customerBL.AddCustomer(_mapper.Cast2Customer(newCustomer));
+                    Log.Information($"Added new customer {newCustomer.FirstName} {newCustomer.LastName}");
                     return RedirectToAction(nameof(Index));
                 }
                 catch
                 {
+                    Log.Error("Customer unable to be added to DB");
                     return View();
                 }
             }
