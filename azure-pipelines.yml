@@ -26,6 +26,10 @@ steps:
   inputs:
     command: 'build'
     projects: '**/StoreApp/StoreMVC/*.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/StoreApp/StoreTests/*.csproj'
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
   inputs:
