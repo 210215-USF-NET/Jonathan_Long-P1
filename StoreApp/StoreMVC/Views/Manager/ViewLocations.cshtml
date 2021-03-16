@@ -35,7 +35,8 @@
                 @Html.DisplayFor(modelItem => item.State)
             </td>
             <td>
-                @Html.ActionLink("Order History", "StoreOrderHistory", new { locationID = item.LocationID })
+                @Html.ActionLink("Order History", "StoreOrderHistory", new { locationID = item.LocationID }) |
+                @Html.ActionLink("Update Inventory", "DisplayInventory", new { locationID = item.LocationID})
             </td>
         </tr>
 }

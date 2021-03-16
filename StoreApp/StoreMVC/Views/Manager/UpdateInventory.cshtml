@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateInventory";
+    StoreModels.Item item = ViewBag.Item;
+    int itemID = item.ItemID;
+}
+
+<h1>Update Inventory</h1>
+<br />
+<div class="container">
+    <form action="UpdateInventoryDB" method="post">
+        <p>You are updating inventory for <b>@item.Product.ProductName</b> at <b>@item.Location.LocationName</b></p>
+        <br />
+        <label>Enter Quantity:</label>
+        <input type="number" id="selectedQuantity" min="1" name="selectedQuantity" placeholder="Select Quantity..." />
+        <input type="hidden" id="itemID" name="itemID" value="@itemID" />
+        <br />
+        <input type="submit" value="Update Inventory" class="btn btn-primary" />
+    </form>
+</div>
+

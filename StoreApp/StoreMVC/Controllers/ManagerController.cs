@@ -19,13 +19,15 @@ namespace StoreMVC.Controllers
         private ILocationBL _locationBL;
         private IProductBL _productBL;
         private IOrderBL _orderBL;
+        private IItemBL _itemBL;
         private IMapper _mapper;
-        public ManagerController(ICustomerBL customerBL, IMapper mapper, ILocationBL locationBL, IProductBL productBL, IOrderBL orderBL)
+        public ManagerController(ICustomerBL customerBL, IMapper mapper, ILocationBL locationBL, IProductBL productBL, IOrderBL orderBL, IItemBL itemBL)
         {
             _customerBL = customerBL;
             _locationBL = locationBL;
             _productBL = productBL;
             _orderBL = orderBL;
+            _itemBL = itemBL;
             _mapper = mapper;
         }
         // GET: ManagerController - Goes to the manager main menu
@@ -85,6 +87,25 @@ namespace StoreMVC.Controllers
             List<ProductOrder> productOrders = _orderBL.GetProductsByOrderID(orderID);
             ViewBag.Products = productOrders;
             return View();
+        }
+        //Display Inventory Per Location to be updated
+        public ActionResult DisplayInventory(int locationID)
+        {
+            return View(_itemBL.GetItemsByLocation(locationID));
+        }
+        //Update Inventory - Enter Quantity
+        public ActionResult UpdateInventory(int itemID)
+        {
+            Item item = _itemBL.GetItemByID(itemID);
+            ViewBag.Item = item;
+            return View();
+        }
+        //Update Inevntory - send updated item to DB
+        public ActionResult UpdateInventoryDB(int selectedQuantity, int itemID)
+        {
+            Item item2BUpdated = _itemBL.GetItemByID(itemID);
+            _itemBL.UpdateItem(item2BUpdated, selectedQuantity);
+            return RedirectToAction(nameof(Index));
         }
         // GET: ManagerController/Details/5
         public ActionResult Details(int id)

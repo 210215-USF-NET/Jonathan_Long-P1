@@ -38,11 +38,13 @@ namespace StoreModels
             get {return product;}
             set {product = value;}
         }
+        public int ProductID { get; set; }
         public Location Location
         {
             get {return location;}
             set {location = value;}
         }
+        public int LocationID { get; set; }
         //Methods
         public override string ToString()
         {
