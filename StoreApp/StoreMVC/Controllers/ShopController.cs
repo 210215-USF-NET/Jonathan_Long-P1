@@ -7,6 +7,7 @@ using StoreMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Serilog;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -76,6 +77,7 @@ namespace StoreMVC.Controllers
             cart.Product2BeBought = p;
             cart.Quantity2BeBought = selectedQuantity;
             StoredProductsQuantity.storedProductsQuantity.Add(cart);
+            Log.Information($"Customer added {selectedQuantity} {p.ProductName} to cart");
             //Return back to store products view
             int locationID = _locationBL.GetLocationByName(selectedLocation).LocationID;
             ViewBag.LocationID = locationID;
@@ -111,6 +113,7 @@ namespace StoreMVC.Controllers
             order.Location = location;
             order.Total = total;
             _orderBL.AddOrder(_mapper.Cast2Order(order));
+            Log.Information($"An order made by {customer.FirstName} {customer.LastName} with a total of ${order.Total} has been from {location.LocationName}");
             ViewBag.ProductQuantity = StoredProductsQuantity.storedProductsQuantity;
             ViewBag.Order = order;
             return View();

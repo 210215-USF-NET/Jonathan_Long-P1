@@ -63,4 +63,16 @@
 } {
   "@t": "2021-03-16T20:30:17.7240371Z",
   "@mt": "Manager menu accessed"
+} {
+  "@t": "2021-03-16T20:51:45.9135659Z",
+  "@mt": "Added new customer Tom Brady"
+} {
+  "@t": "2021-03-16T20:52:37.1420197Z",
+  "@mt": "Customer added 1 Atomic Bent Chetler 120 Skis to cart"
+} {
+  "@t": "2021-03-16T20:52:43.7500256Z",
+  "@mt": "Customer added 1 Rosingol Twin Tip Skis to cart"
+} {
+  "@t": "2021-03-16T20:52:48.9998820Z",
+  "@mt": "An order made by Tom Brady with a total of $1299.98 has been from Massanutten"
 }
