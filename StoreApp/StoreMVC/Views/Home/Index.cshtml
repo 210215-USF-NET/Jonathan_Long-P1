@@ -1,8 +1,34 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .bg-1{
+        background-color:#A9A9A9
+    }
+    .bg-2{
+        background-color:#EFEFEF
+    }
+    .h1{
+        font-weight: bolder;
+    }
+</style>
+<div class="container-fluid text-center">
+    <div class="bg-1">
+        <h1 class="display-4">Welcome to the Ski Store</h1>
+        <p>We specialize in ski equipment!</p>
+    </div>
+    <div class="row bg-2">
+        <div class="col-sm-4">
+            <p><strong>We sell skis!</strong></p>
+            <img src="~/Images/skis_2.jpg" alt="skis" class="rounded-circle" />
+        </div>
+        <div class="col-sm-4">
+            <p><strong>We sell boots!</strong></p>
+            <img src="~/Images/boots.jpg" alt="boots" class="rounded-circle" />
+        </div>
+        <div class="col-sm-4">
+            <p><strong>We sell poles!</strong></p>
+            <img src="~/Images/poles.jpg" alt="poles" class="rounded-circle" />
+        </div>
+    </div>
 </div>
