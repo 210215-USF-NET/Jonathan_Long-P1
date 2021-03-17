@@ -32,8 +32,8 @@ namespace StoreModels
         }
         public double Total
         {
-            get {return total;}
-            set {total = value;}
+            get {return Math.Round(total,2);}
+            set { total = Math.Round(value, 2); }
         }
         public DateTime Date
         {

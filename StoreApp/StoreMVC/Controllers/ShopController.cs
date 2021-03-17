@@ -98,6 +98,7 @@ namespace StoreMVC.Controllers
             {
                 custListShop.Add(_mapper.Cast2CustomerShopModel(item));
             }
+            Math.Round(total, 2); //rounding total
             ViewBag.Total = total;
             ViewBag.Customers = custListShop;
             ViewBag.LocationID = locationID;
