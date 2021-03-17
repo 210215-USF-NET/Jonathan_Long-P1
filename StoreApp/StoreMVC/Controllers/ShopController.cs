@@ -38,6 +38,7 @@ namespace StoreMVC.Controllers
         // GET: ShopController
         public ActionResult Index()
         {
+            StoredProductsQuantity.storedProductsQuantity.Clear(); //In case customer exits current store
             return View(_locationBL.GetLocations().Select(location => _mapper.Cast2LocationIndexVM(location)).ToList());
         }
         public ActionResult Shop(int locationID)
