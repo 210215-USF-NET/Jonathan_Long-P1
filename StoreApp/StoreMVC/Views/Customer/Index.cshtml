@@ -45,8 +45,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Order History", "OrderHistory", new { firstName = item.FirstName, lastName = item.LastName }) |
-                    @Html.ActionLink("Details", "Details", new { firstName = item.FirstName, lastName = item.LastName }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Details", "Details", new { firstName = item.FirstName, lastName = item.LastName }) 
                 </td>
             </tr>
         }
